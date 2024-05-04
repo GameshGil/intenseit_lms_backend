@@ -5,7 +5,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Area(models.Model):
     """Модель направлений курсов."""
 
-    name = models.CharField('Название направления', max_length=64)
+    name = models.CharField(
+        'Название направления',
+        max_length=64,
+        blank=False,
+        null=False
+    )
 
     class Meta:
         ordering = ['name']
@@ -29,6 +34,7 @@ class Course(models.Model):
         Area,
         verbose_name='Направление курса',
         on_delete=models.SET_NULL,
+        blank=True,
         null=True,
         related_name='courses'
     )
