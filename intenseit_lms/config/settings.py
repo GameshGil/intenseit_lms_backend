@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'users.apps.UsersConfig',
+    'courses.apps.CoursesConfig',
     'articles.apps.ArticlesConfig',
 ]
 
