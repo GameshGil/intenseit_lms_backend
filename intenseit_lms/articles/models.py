@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from rest_framework.reverse import reverse
 
 from courses.models import Course, Area
 
@@ -50,6 +51,9 @@ class Article(models.Model):
     def __str__(self) -> str:
         return self.title[:20]
 
+    def get_absolute_url(self):
+        return reverse('article_app:articles-detail', kwargs={'pk': self.pk})
+
 
 class CourseArticle(models.Model):
     """Промежуточная модель занятий курсов."""
@@ -67,3 +71,12 @@ class CourseArticle(models.Model):
         blank=False,
         null=False
     )
+
+    class Meta:
+        ordering = ['course', 'order_num']
+
+    def get_absolute_url(self):
+        return reverse(
+            'course_app:lessons-detail',
+            kwargs={'pk': self.pk, 'course_id': self.course.id}
+        )
