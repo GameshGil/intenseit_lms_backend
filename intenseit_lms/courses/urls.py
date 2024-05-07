@@ -7,6 +7,11 @@ router = DefaultRouter()
 
 
 router.register(r'courses', views.CourseViewSet, basename='courses')
+router.register(
+    r'courses/(?P<course_id>\d+)/lessons',
+    views.LessonViewSet,
+    basename='lessons'
+)
 
 urlpatterns = [
     path('', include(router.urls)),
