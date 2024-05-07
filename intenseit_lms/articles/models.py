@@ -28,8 +28,6 @@ class Article(models.Model):
     courses = models.ManyToManyField(
         Course,
         through='CourseArticle',
-        null=True,
-        blank=True,
         related_name='lessons',
     )
     area = models.ForeignKey(
