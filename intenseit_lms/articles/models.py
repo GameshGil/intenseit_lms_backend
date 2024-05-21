@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from rest_framework.reverse import reverse
@@ -68,6 +69,7 @@ class CourseArticle(models.Model):
     )
     order_num = models.PositiveSmallIntegerField(
         'Порядковый номер занятия',
+        validators=[MinValueValidator(1)],
         blank=False,
         null=False
     )
