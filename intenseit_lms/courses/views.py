@@ -20,11 +20,11 @@ class CourseViewSet(viewsets.ModelViewSet):
             return CourseListSerializer
         return CourseSerializer
 
-    @action(detail=True, methods=['get', 'put'], url_name='journal',
+    @action(detail=True, methods=['get', 'patch'], url_name='journal',
             url_path='journal')
     def get_journal(self, request, pk=None):
         course = self.get_object()
-        if request.method == 'PUT':
+        if request.method == 'PATCH':
             return Response(
                 {'journal_data':
                  f'В журнал курса {course.name} внесены изменения.'})
@@ -47,6 +47,6 @@ class LessonViewSet(viewsets.ModelViewSet):
         return CourseArticle.objects.filter(course=self.get_course())
 
     def get_serializer_class(self):
-        if action == 'update':
+        if self.action == 'update':
             return LessonUpdateSerializer
         return LessonSerializer
