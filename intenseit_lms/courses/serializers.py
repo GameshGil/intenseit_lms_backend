@@ -12,7 +12,7 @@ class LessonSerializer(serializers.ModelSerializer):
         model = CourseArticle
         fields = ('article',)
 
-    def to_representation(self, instance):
+    def to_representation(self, instance) -> dict:
         data = {
             'lesson_id': instance.id,
             'article_title': instance.article.title,
@@ -22,7 +22,7 @@ class LessonSerializer(serializers.ModelSerializer):
         }
         return data
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> CourseArticle:
         view = self.context.get('view')
         max_order_num = view.get_queryset().aggregate(
             Max('order_num', default=0))
@@ -40,17 +40,26 @@ class LessonUpdateSerializer(LessonSerializer):
         model = CourseArticle
         fields = ('order_num',)
 
-    def update(self, instance, validated_data):
-        view = self.context.get('view')
-        current_order_num = instance.order_num
-        new_order_num = validated_data.get('order_num', current_order_num)
-        swap_lesson = view.get_queryset().filter(
-            order_num=new_order_num).first()
-        instance.order_num = new_order_num
-        swap_lesson.order_num = current_order_num
-        instance.save()
-        swap_lesson.save()
+    def update(self, instance, validated_data) -> None:
+        new_order_position = validated_data.get(
+            'order_num', instance.order_num)
+        self.swap_lessons_order(instance, new_order_position)
         return instance
+
+    def swap_lessons_order(
+            self,
+            current_lesson: CourseArticle,
+            new_order_position: int) -> None:
+        current_order_position = current_lesson.order_num
+        view = self.context.get('view')
+        lesson_to_swap = view.get_queryset().filter(
+            order_num=new_order_position).first()
+        if lesson_to_swap is None:
+            return
+        current_lesson.order_num = new_order_position
+        lesson_to_swap.order_num = current_order_position
+        current_lesson.save()
+        lesson_to_swap.save()
 
 
 class CourseSerializer(serializers.ModelSerializer):
