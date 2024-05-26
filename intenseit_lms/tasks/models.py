@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from articles.models import Article
 
@@ -13,9 +14,9 @@ class Task(models.Model):
         null=False
     )
     text = models.TextField('Текст задания', blank=False, null=False)
-    lesson = models.ForeignKey(
+    article = models.ForeignKey(
         Article,
-        verbose_name='Статья занятия',
+        verbose_name='Статья задания',
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
@@ -29,3 +30,6 @@ class Task(models.Model):
 
     def __str__(self) -> str:
         return self.name[:50]
+
+    def get_absolute_url(self):
+        return reverse('lms_api:tasks-detail', kwargs={'pk': self.pk})
