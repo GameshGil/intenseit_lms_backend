@@ -7,11 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include((
         'articles.urls', 'articles'),
-        namespace='article_app'
-    )),
-    path('api/v1/', include((
-        'courses.urls', 'courses'),
-        namespace='course_app'
+        namespace='lms_api'
     )),
     path('token/', TokenObtainPairView.as_view(), name='user_token_obtain'),
     path('token/refresh/', TokenRefreshView.as_view(),
