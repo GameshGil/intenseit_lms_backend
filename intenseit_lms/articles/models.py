@@ -21,11 +21,11 @@ class Article(models.Model):
     text = models.TextField('Текст статьи', blank=False, null=False)
     author = models.ForeignKey(
         User,
+        verbose_name='Автор статьи',
         on_delete=models.SET_NULL,
         null=True,
         blank=False,
-        related_name='articles',
-        verbose_name='Автор статьи'
+        related_name='articles'
     )
     courses = models.ManyToManyField(
         Course,
@@ -61,10 +61,12 @@ class CourseArticle(models.Model):
 
     course = models.ForeignKey(
         Course,
+        verbose_name='Курс занятия',
         on_delete=models.CASCADE
     )
     article = models.ForeignKey(
         Article,
+        verbose_name='Статья занятия',
         on_delete=models.CASCADE
     )
     order_num = models.PositiveSmallIntegerField(
