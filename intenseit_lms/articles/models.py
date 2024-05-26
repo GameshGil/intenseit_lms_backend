@@ -53,7 +53,7 @@ class Article(models.Model):
         return self.title[:20]
 
     def get_absolute_url(self):
-        return reverse('article_app:articles-detail', kwargs={'pk': self.pk})
+        return reverse('lms_api:articles-detail', kwargs={'pk': self.pk})
 
 
 class CourseArticle(models.Model):
@@ -81,6 +81,6 @@ class CourseArticle(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            'course_app:lessons-detail',
+            'lms_api:lessons-detail',
             kwargs={'pk': self.pk, 'course_id': self.course.id}
         )
