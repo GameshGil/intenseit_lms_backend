@@ -18,3 +18,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_current_user_info(self, request, pk=None):
         current_user = request.user
         return Response({'user': UserFullInfoSerializer(current_user).data})
+
+    @action(detail=False, methods=['post'], url_name='reset_password',
+            url_path='reset_password')
+    def reset_user_password(self, request, pk=None):
+        current_user = request.user
+        return Response({'message': 'Временный пароль был выслан вам на почту '
+                         f'{current_user.email}'})
