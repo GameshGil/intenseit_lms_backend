@@ -9,7 +9,7 @@ urlpatterns = [
         'articles.urls', 'articles'),
         namespace='lms_api'
     )),
-    path('token/', TokenObtainPairView.as_view(), name='user_token_obtain'),
-    path('token/refresh/', TokenRefreshView.as_view(),
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='user_token_obtain'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(),
          name='user_token_refresh'),
 ]
