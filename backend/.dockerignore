@@ -4,4 +4,4 @@ venv
 .gitignore
 .dockerignore
 .env
-db.sqlite
+db.sqlite3

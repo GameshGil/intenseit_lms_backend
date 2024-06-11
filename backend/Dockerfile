@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-RUN pip install --upgrade pip && pip install gunicorn==22.0.0
+RUN pip install --upgrade pip
 
 COPY requirements.txt .
 
