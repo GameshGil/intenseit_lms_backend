@@ -5,10 +5,7 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include((
-        'articles.urls', 'articles'),
-        namespace='lms_api'
-    )),
+    path('api/v1/', include(('articles.urls'), namespace='lms_api')),
     path(
         'api/v1/token/',
         TokenObtainPairView.as_view(),

@@ -6,6 +6,8 @@ from courses.views import CourseViewSet, LessonViewSet, get_analytics
 from tasks.views import TaskViewSet
 from users.views import UserViewSet
 
+app_name = 'articles'
+
 router = DefaultRouter()
 
 
