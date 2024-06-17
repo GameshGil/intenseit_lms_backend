@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from articles.models import Article, CourseArticle
 from courses.models import Course, Area
+from tasks.models import Task
 
 
 User = get_user_model()
@@ -25,6 +26,10 @@ class ArticleTestSetup(APITestCase):
             area=area,
             year=2024,
             is_hidden=False
+        )
+        Task.objects.create(
+            name='Name of test task',
+            text='Text of test task'
         )
 
     def setUp(self) -> None:
