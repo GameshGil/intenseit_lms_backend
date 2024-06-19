@@ -2,12 +2,19 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+OBJECT_DESCR_MAX_LENGTH = 50
+AREA_NAME_MAX_LENGTH = 64
+COURSE_NAME_MAX_LENGTH = 255
+PROJECT_MIN_YEAR = 2022
+PROJECT_MAX_YEAR = 2040
+
+
 class Area(models.Model):
     """Модель направлений курсов."""
 
     name = models.CharField(
         'Название направления',
-        max_length=64,
+        max_length=AREA_NAME_MAX_LENGTH,
         blank=False,
         null=False
     )
@@ -18,7 +25,7 @@ class Area(models.Model):
         verbose_name_plural = 'Направления'
 
     def __str__(self) -> str:
-        return self.name[:50]
+        return self.name[:OBJECT_DESCR_MAX_LENGTH]
 
 
 class Course(models.Model):
@@ -26,7 +33,7 @@ class Course(models.Model):
 
     name = models.CharField(
         'Название курса',
-        max_length=255,
+        max_length=COURSE_NAME_MAX_LENGTH,
         blank=False,
         null=False
     )
@@ -40,7 +47,9 @@ class Course(models.Model):
     )
     year = models.PositiveSmallIntegerField(
         'Год курса',
-        validators=[MinValueValidator(2023), MaxValueValidator(2040)],
+        validators=[
+            MinValueValidator(PROJECT_MIN_YEAR),
+            MaxValueValidator(PROJECT_MAX_YEAR)],
         blank=False,
         null=False
     )
@@ -57,4 +66,4 @@ class Course(models.Model):
         verbose_name_plural = 'Курсы'
 
     def __str__(self) -> str:
-        return self.name[:50]
+        return self.name[:OBJECT_DESCR_MAX_LENGTH]
