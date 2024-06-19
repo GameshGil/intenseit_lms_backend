@@ -40,7 +40,7 @@ class LessonUpdateSerializer(LessonSerializer):
         model = CourseArticle
         fields = ('order_num',)
 
-    def update(self, instance, validated_data) -> None:
+    def update(self, instance, validated_data) -> CourseArticle:
         new_order_position = validated_data.get(
             'order_num', instance.order_num)
         self.swap_lessons_order(instance, new_order_position)
