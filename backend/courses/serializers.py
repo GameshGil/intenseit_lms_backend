@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.db.models import Max
 from rest_framework import serializers
 
@@ -12,7 +13,7 @@ class LessonSerializer(serializers.ModelSerializer):
         model = CourseArticle
         fields = ('article',)
 
-    def to_representation(self, instance) -> dict:
+    def to_representation(self, instance: CourseArticle) -> dict:
         data = {
             'lesson_id': instance.id,
             'article_title': instance.article.title,
@@ -22,7 +23,7 @@ class LessonSerializer(serializers.ModelSerializer):
         }
         return data
 
-    def create(self, validated_data) -> CourseArticle:
+    def create(self, validated_data: OrderedDict) -> CourseArticle:
         view = self.context.get('view')
         max_order_num = view.get_queryset().aggregate(
             Max('order_num', default=0))
@@ -40,7 +41,10 @@ class LessonUpdateSerializer(LessonSerializer):
         model = CourseArticle
         fields = ('order_num',)
 
-    def update(self, instance, validated_data) -> CourseArticle:
+    def update(
+            self,
+            instance: CourseArticle,
+            validated_data: OrderedDict) -> CourseArticle:
         new_order_position = validated_data.get(
             'order_num', instance.order_num)
         self.swap_lessons_order(instance, new_order_position)
@@ -71,7 +75,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = '__all__'
 
-    def get_lessons(self, obj):
+    def get_lessons(self, obj: Course) -> list:
         lesson_list = CourseArticle.objects.filter(course=obj)
         return [LessonSerializer(lesson).data for lesson in lesson_list]
 
@@ -85,5 +89,5 @@ class CourseListSerializer(serializers.ModelSerializer):
         model = Course
         fields = '__all__'
 
-    def get_lessons_count(self, obj):
+    def get_lessons_count(self, obj: Course) -> int:
         return CourseArticle.objects.filter(course=obj).count()
