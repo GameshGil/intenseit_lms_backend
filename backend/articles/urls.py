@@ -1,5 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, TokenRefreshView)
 
 from .views import ArticleViewSet
 from courses.views import CourseViewSet, LessonViewSet, get_analytics
@@ -23,5 +25,15 @@ router.register(r'tasks', TaskViewSet, basename='tasks')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('analytics/', get_analytics, name='analytics')
+    path('analytics/', get_analytics, name='analytics'),
+    path(
+        'token/',
+        TokenObtainPairView.as_view(),
+        name='user_token_obtain'
+    ),
+    path(
+        'token/refresh/',
+        TokenRefreshView.as_view(),
+        name='user_token_refresh'
+    ),
 ]
