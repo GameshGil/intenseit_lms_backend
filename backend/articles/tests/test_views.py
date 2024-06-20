@@ -1,7 +1,3 @@
-# 1. Проверка view-классов на использование ожидаемых HTML-шаблонов
-# 2. Проверка view-классов на передачу правильного контекста
-# 3. Проверка пагинатора view-классов (количество элементов, содержимое одного)
-
 from django.urls import reverse
 from rest_framework import status
 from django.utils import timezone
