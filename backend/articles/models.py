@@ -6,6 +6,12 @@ from rest_framework.reverse import reverse
 
 from courses.models import Course, Area
 
+
+ARTICLE_NAME_MAX_LENGTH = 255
+ARTICLE_OBJECT_DESCR_MAX_LENGTH = 20
+ORDER_NUMBER_MIN_VALUE = 1
+
+
 User = get_user_model()
 
 
@@ -14,7 +20,7 @@ class Article(models.Model):
 
     title = models.CharField(
         'Заголовок статьи',
-        max_length=255,
+        max_length=ARTICLE_NAME_MAX_LENGTH,
         blank=False,
         null=False
     )
@@ -50,7 +56,7 @@ class Article(models.Model):
         verbose_name_plural = 'Статьи'
 
     def __str__(self) -> str:
-        return self.title[:20]
+        return self.title[:ARTICLE_OBJECT_DESCR_MAX_LENGTH]
 
     def get_absolute_url(self):
         return reverse('lms_api:articles-detail', kwargs={'pk': self.pk})
@@ -71,7 +77,7 @@ class CourseArticle(models.Model):
     )
     order_num = models.PositiveSmallIntegerField(
         'Порядковый номер занятия',
-        validators=[MinValueValidator(1)],
+        validators=[MinValueValidator(ORDER_NUMBER_MIN_VALUE)],
         blank=False,
         null=False
     )

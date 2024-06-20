@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser
 from rest_framework.reverse import reverse
 
 
+USER_ROLE_MAX_LENGTH = 1
+
+
 class CustomUser(AbstractUser):
     """Кастомная модель пользователя."""
 
@@ -14,7 +17,7 @@ class CustomUser(AbstractUser):
     ]
     role = models.CharField(
         'Роль пользователя',
-        max_length=1,
+        max_length=USER_ROLE_MAX_LENGTH,
         choices=ROLE_CHOICES,
         default=USER
     )

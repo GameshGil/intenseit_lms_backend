@@ -4,7 +4,7 @@ from django.urls import reverse
 from articles.models import Article
 
 
-OBJECT_DESCR_MAX_LENGTH = 50
+TASK_OBJECT_DESCR_MAX_LENGTH = 31
 TASK_NAME_MAX_LENGTH = 255
 
 
@@ -33,7 +33,7 @@ class Task(models.Model):
         verbose_name_plural = 'Задания'
 
     def __str__(self) -> str:
-        return self.name[:OBJECT_DESCR_MAX_LENGTH]
+        return self.name[:TASK_OBJECT_DESCR_MAX_LENGTH]
 
     def get_absolute_url(self):
         return reverse('lms_api:tasks-detail', kwargs={'pk': self.pk})

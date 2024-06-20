@@ -2,8 +2,9 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-OBJECT_DESCR_MAX_LENGTH = 50
-AREA_NAME_MAX_LENGTH = 64
+AREA_OBJECT_DESCR_MAX_LENGTH = 31
+COURSE_OBJECT_DESCR_MAX_LENGTH = 31
+AREA_NAME_MAX_LENGTH = 63
 COURSE_NAME_MAX_LENGTH = 255
 PROJECT_MIN_YEAR = 2022
 PROJECT_MAX_YEAR = 2040
@@ -25,7 +26,7 @@ class Area(models.Model):
         verbose_name_plural = 'Направления'
 
     def __str__(self) -> str:
-        return self.name[:OBJECT_DESCR_MAX_LENGTH]
+        return self.name[:AREA_OBJECT_DESCR_MAX_LENGTH]
 
 
 class Course(models.Model):
@@ -66,4 +67,4 @@ class Course(models.Model):
         verbose_name_plural = 'Курсы'
 
     def __str__(self) -> str:
-        return self.name[:OBJECT_DESCR_MAX_LENGTH]
+        return self.name[:COURSE_OBJECT_DESCR_MAX_LENGTH]
