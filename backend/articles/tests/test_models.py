@@ -1,14 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
-from .test_setup import ArticleTestSetup, CourseArticleTestSetup
+from .test_setup import CommonTestSetup
 from articles.models import Article, CourseArticle
 
 User = get_user_model()
 
 
-class ArticleModelTest(ArticleTestSetup):
-    """Тестирование для модели Article."""
+class ArticleModelTest(CommonTestSetup):
+    """Тестирование модели Article."""
 
     def test_article_creation(self):
         self.assertEqual(self.article.title, 'Title of test article')
@@ -82,8 +82,8 @@ class ArticleModelTest(ArticleTestSetup):
         self.assertEqual(self.article.area, self.area)
 
 
-class CourseArticleModelTest(CourseArticleTestSetup):
-    """Тестирование для модели CourseArticle."""
+class CourseArticleModelTest(CommonTestSetup):
+    """Тестирование модели CourseArticle."""
 
     def test_course_article_creation(self):
         self.assertEqual(self.course_article.course.name, 'Test course name')
