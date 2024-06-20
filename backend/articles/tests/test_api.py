@@ -1,9 +1,10 @@
 from django.urls import reverse
 from rest_framework import status
-from .test_setup import ArticleTestSetup
+
+from .test_setup import CommonTestSetup
 
 
-class ArticleAPIsTest(ArticleTestSetup):
+class ArticleAPITest(CommonTestSetup):
     """Тест доступности конечных точек статей."""
 
     def test_url_get_all_articles(self):
@@ -22,6 +23,10 @@ class ArticleAPIsTest(ArticleTestSetup):
         response = self.client.get(reverse(
             'lms_api:articles-detail', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class UserAPITest(CommonTestSetup):
+    """Тест доступности конечных точек пользователей."""
 
     def test_url_get_all_users(self):
         response = self.client.get('/api/v1/users/')
@@ -56,6 +61,10 @@ class ArticleAPIsTest(ArticleTestSetup):
         response = self.client.post(reverse('lms_api:users-reset_password'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
+class CourseAPITest(CommonTestSetup):
+    """Тест доступности конечных точек курсов."""
+
     def test_url_get_all_courses(self):
         response = self.client.get('/api/v1/courses/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -82,6 +91,10 @@ class ArticleAPIsTest(ArticleTestSetup):
             'lms_api:courses-journal', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
+class AnalyticsAPITest(CommonTestSetup):
+    """Тест доступности конечных точек аналитики."""
+
     def test_url_get_analytics(self):
         response = self.client.get('/api/v1/analytics/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -89,6 +102,10 @@ class ArticleAPIsTest(ArticleTestSetup):
     def test_url_get_analytics_reverse(self):
         response = self.client.get(reverse('lms_api:analytics'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class LessonAPITest(CommonTestSetup):
+    """Тест доступности конечных точек занятий."""
 
     def test_url_get_all_lessons(self):
         response = self.client.get('/api/v1/courses/1/lessons/')
@@ -107,6 +124,10 @@ class ArticleAPIsTest(ArticleTestSetup):
         response = self.client.get(reverse(
             'lms_api:lessons-detail', kwargs={'pk': 1, 'course_id': 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class TaskAPITest(CommonTestSetup):
+    """Тест доступности конечных точек заданий."""
 
     def test_url_get_all_tasks(self):
         response = self.client.get('/api/v1/tasks/')
