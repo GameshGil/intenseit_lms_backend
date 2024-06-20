@@ -11,7 +11,7 @@ from tasks.models import Task
 User = get_user_model()
 
 
-class ArticleTestSetup(APITestCase):
+class CommonTestSetup(APITestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
@@ -49,10 +49,4 @@ class ArticleTestSetup(APITestCase):
         )
         self.article.courses.add(
             self.course, through_defaults={'order_num': 1})
-
-
-class CourseArticleTestSetup(ArticleTestSetup):
-
-    def setUp(self) -> None:
-        super().setUp()
         self.course_article = CourseArticle.objects.get(pk=1)
