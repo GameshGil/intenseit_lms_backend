@@ -6,6 +6,7 @@ from tasks.serializers import TaskSerializer
 
 class ArticleSerializer(serializers.ModelSerializer):
     """Сериализатор для статей."""
+
     tasks = TaskSerializer(many=True, read_only=True)
 
     def to_representation(self, instance):
@@ -18,4 +19,4 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('title', 'text', 'author', 'area', 'tasks')
+        fields = ('title', 'text', 'author', 'area', 'pub_date', 'tasks')
