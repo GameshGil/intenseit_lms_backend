@@ -15,10 +15,17 @@ class ArticleViewTestCase(CommonTestSetup):
         results = response.data.get('results')
         self.assertEqual(len(results), 1)
         check_data = {
-            'title': 'Title of test article',
-            'text': 'Text of test article',
-            'author': 'test_user1',
-            'area': 'Test area name'
+            'title': self.article.title,
+            'text': self.article.text,
+            'author': self.article.author.username,
+            'area': self.article.area.name,
+            'tasks': [
+                {
+                    'name': self.task.name,
+                    'text': self.task.text,
+                    'url': self.task.get_absolute_url()
+                }
+            ]
         }
         for field, expected_value in check_data.items():
             self.assertEqual(results[0].get(field), expected_value)
@@ -29,10 +36,17 @@ class ArticleViewTestCase(CommonTestSetup):
             kwargs={'pk': self.article.pk}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         check_data = {
-            'title': 'Title of test article',
-            'text': 'Text of test article',
-            'author': 'test_user1',
-            'area': 'Test area name'
+            'title': self.article.title,
+            'text': self.article.text,
+            'author': self.article.author.username,
+            'area': self.article.area.name,
+            'tasks': [
+                {
+                    'name': self.task.name,
+                    'text': self.task.text,
+                    'url': self.task.get_absolute_url()
+                }
+            ]
         }
         for field, expected_value in check_data.items():
             self.assertEqual(response.data.get(field), expected_value)
