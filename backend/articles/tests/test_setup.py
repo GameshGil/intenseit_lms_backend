@@ -50,3 +50,6 @@ class CommonTestSetup(APITestCase):
         self.article.courses.add(
             self.course, through_defaults={'order_num': 1})
         self.course_article = CourseArticle.objects.get(pk=1)
+        self.task = Task.objects.get(pk=1)
+        self.task.article = self.article
+        self.task.save()
