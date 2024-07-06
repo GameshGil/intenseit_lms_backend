@@ -22,7 +22,8 @@ class Article(models.Model):
         'Заголовок статьи',
         max_length=ARTICLE_NAME_MAX_LENGTH,
         blank=False,
-        null=False
+        null=False,
+        unique=True
     )
     text = models.TextField('Текст статьи', blank=False, null=False)
     author = models.ForeignKey(
