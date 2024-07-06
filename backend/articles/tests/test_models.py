@@ -15,6 +15,7 @@ class ArticleModelTest(CommonTestSetup):
         self.assertEqual(self.article.text, 'Text of test article')
         self.assertEqual(self.article.author.username, 'test_user1')
         self.assertEqual(self.article.courses.first().name, 'Test course name')
+        self.assertEqual(self.article.tasks.first().name, 'Name of test task')
 
     def test_article_update(self):
         self.article.title = 'Update title of test article'
