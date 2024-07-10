@@ -13,6 +13,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:7.2
+
   backend:
     build: ./backend
     env_file: .env
@@ -21,7 +24,16 @@ services:
       - static:/var/www/backend_static
     depends_on:
       - db
+      - redis
   
+  celery_worker:
+    build: ./backend
+    env_file: .env
+    command: ["celery", "-A", "config", "worker", "--loglevel=info"]
+    depends_on:
+      - db
+      - redis
+
   nginx:
     image: nginx:1.27.0
     volumes:
