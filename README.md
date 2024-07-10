@@ -18,7 +18,7 @@
 
 ## Запуск системы контейнеров
 Для запуска всей системы контейнеров (backend, база данных postgresql, nginx, celery, redis) необходимо воспользоваться файлом конфигурации docker-compose.yml.
-Предварительно скопировать файл docker-compose.yml из корневой папки проекта к себе на сервер.
+Предварительно скопировать проект к себе на сервер.
 На сервере в папке с файлом docker-compose.yml выполнить команду:
 ```sh
 docker-compose up --build
@@ -38,7 +38,7 @@ python3 manage.py collectstatic --noinput
 
 
 ## Запуск приложения в контейнере
-Предварительно в настройках settings.py на 75 строчке сделать активной базу 'default' на sqlite.
+Предварительно в настройках settings.py на 75 строчке переключить активной базу 'default' с postgresql на sqlite.
 Далее собрать образ Django-приложения, выполнив команду в корневой папке проекта:
 ```sh
 docker image build -t intenseit_backend_image:1.0 backend/.
